@@ -1,1 +1,15 @@
-{"noiseKey":{"private":{"type":"Buffer","data":"CEkmWe/DA5ukrP8EkTprYbC1CscNAlkAG4Nj6NDjzX4="},"public":{"type":"Buffer","data":"dvv5b6edbZu8V7IKctUAVO3NnSW070XpIuHthacwX04="}},"pairingEphemeralKeyPair":{"private":{"type":"Buffer","data":"OFm9eYQlDAmuk4JTlVziOZhEgICx67QkX3dRdVKFOlo="},"public":{"type":"Buffer","data":"u8unD9mSwxF4unH1KSa1hSuoR3RISY+KNj1qQLYmPUk="}},"signedIdentityKey":{"private":{"type":"Buffer","data":"AMLkKSjyzu+eXVaQhZe/2V18OBVhL5swL6a3Nubs+10="},"public":{"type":"Buffer","data":"e9z3cougp9KNouqJYqlUaeCro4yZQytddShql6QC/Sw="}},"signedPreKey":{"keyPair":{"private":{"type":"Buffer","data":"KPpopdkMVTlo8EJq42niQGL/HueJ5QCXShYSrCtaYG0="},"public":{"type":"Buffer","data":"d7/XfUkG8IrSPy/iYOI/r0b9N/TWorOLuEIR09jRmRM="}},"signature":{"type":"Buffer","data":"HADIDTKCtyTXA/e9MDb0g01jLp8Z9enwQF1Oy77pDFtKpJS0KsYMU1eFA9OgEEGQk+9ZxF+Yz9SyyKnWezVYAw=="},"keyId":1},"registrationId":168,"advSecretKey":"ChdXqHpmD7El4l91li6h+4W73ex2x0T3dt3yigORGmY=","processedHistoryMessages":[{"key":{"remoteJid":"6281212181641@s.whatsapp.net","fromMe":true,"id":"07E5AB756FF817469A473E26FBAFFBE7"},"messageTimestamp":1697348962},{"key":{"remoteJid":"6281212181641@s.whatsapp.net","fromMe":true,"id":"4BCBC47D1C1069D83F6553BD03C4A676"},"messageTimestamp":1697348963},{"key":{"remoteJid":"6281212181641@s.whatsapp.net","fromMe":true,"id":"B35C53D9DB89ED4EAA00A246790963D6"},"messageTimestamp":1697348968},{"key":{"remoteJid":"6281212181641@s.whatsapp.net","fromMe":true,"id":"DFA3FCDC73FA5E1825E3A66F5F14BCA2"},"messageTimestamp":1697348968},{"key":{"remoteJid":"6281212181641@s.whatsapp.net","fromMe":true,"id":"3CB36C611EECB0F0B859547ACD0754CB"},"messageTimestamp":1697348970}],"nextPreKeyId":779,"firstUnuploadedPreKeyId":779,"accountSyncCounter":1,"accountSettings":{"unarchiveChats":false},"deviceId":"Eefj3yJZTMC-oRd3YzM_jg","phoneId":"1e4d2928-9f52-4166-b92d-ba0ba9841263","identityId":{"type":"Buffer","data":"85nfb7IhmcvaolDBcZXKRFsfpvM="},"registered":true,"backupToken":{"type":"Buffer","data":"E+2wmlopmvAe+RM/UIfdVz5Mpj8="},"registration":{},"pairingCode":"HXGAH9KB","me":{"id":"6281212181641:8@s.whatsapp.net","name":"Iky bot","jid":"6281212181641@s.whatsapp.net"},"account":{"details":"CKK8t/0BEN76rakGGAU=","accountSignatureKey":"6jOzuL5RiWNKEDVjkkpLMdiy2sVFqwwgsMwAr9wYtmo=","accountSignature":"TmnoDki7am9jPXHSkOa57+JCrVe0N3CDAJFtfhjE12aO3knqiGT1fkved5a3M9qCyfD4GJBDRvAYIaVCAWHtAQ==","deviceSignature":"qHzS9/nEpgYO9qJAQChu7Laq96XOXbkaGn4uk3ojJOdi9yQkASwYjlJvsf+mFqGaH9ZMplOdhf/Ga/1Xe+H7DQ=="},"signalIdentities":[{"identifier":{"name":"6281212181641:8@s.whatsapp.net","deviceId":0},"identifierKey":{"type":"Buffer","data":"Beozs7i+UYljShA1Y5JKSzHYstrFRasMILDMAK/cGLZq"}}],"platform":"android","lastAccountSyncTimestamp":1698960428,"myAppStateKeyId":"AAAAAAKF"
+# Use a base image that supports systemd, for example, Ubuntu
+FROM ubuntu:20.04
+
+# Install necessary packages
+RUN apt-get update && \
+    apt-get install -y shellinabox && \
+    apt-get install -y systemd && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN echo 'root:root' | chpasswd
+# Expose the web-based terminal port
+EXPOSE 4200
+
+# Start shellinabox
+CMD ["/usr/bin/shellinaboxd", "-t", "-s", "/:LOGIN"]
